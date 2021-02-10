@@ -28,19 +28,32 @@ namespace ConsoleUI
         private static void ProductTest()
         {
             ProductManager productManager = new ProductManager(new EFProductDal());
-            foreach (var product in productManager.GetAll())
+
+            //foreach (var product in productManager.GetAll().Data)
+            //{
+            //    Console.WriteLine(product.ProductName);
+            //}
+            //Console.WriteLine();
+            //foreach (var product in productManager.GetByUnitPrice(40, 100).Data)
+            //{
+            //    Console.WriteLine(product.ProductName);
+            //}
+            //Console.WriteLine();
+            //foreach (var item in productManager.GetProductDetails().Data)
+            //{
+            //    Console.WriteLine(item.ProductName + "/" + item.CategoryName);
+            //}
+            var result = productManager.GetProductDetails();
+            if (result.Success)
             {
-                Console.WriteLine(product.ProductName);
+                foreach (var product in result.Data)
+                {
+                    Console.WriteLine(product.ProductName + "/" + product.CategoryName);
+                }
             }
-            Console.WriteLine();
-            foreach (var product in productManager.GetByUnitPrice(40, 100))
+            else
             {
-                Console.WriteLine(product.ProductName);
-            }
-            Console.WriteLine();
-            foreach (var item in productManager.GetProductDetails())
-            {
-                Console.WriteLine(item.ProductName + "/" + item.CategoryName);
+                Console.WriteLine(result.Message);
             }
         }
     }
