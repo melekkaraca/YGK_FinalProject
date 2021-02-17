@@ -32,8 +32,8 @@ namespace WebAPI
             //Autofac, Minject, CasleWindsor, StructureMap, LightInject, DryInject---> IoC Container
             //AOP :Bir metodun önünde, sonunda, hata verdiðinde çalýþan kodlama parcacýklarý [Validate]
             services.AddControllers();
-            services.AddSingleton<IProductService, ProductManager>();
-            services.AddSingleton<IProductDal, EFProductDal>();
+            //services.AddSingleton<IProductService, ProductManager>();
+            //services.AddSingleton<IProductDal, EFProductDal>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
