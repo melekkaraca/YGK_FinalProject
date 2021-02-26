@@ -18,16 +18,16 @@ namespace ConsoleUI
         private static void CategoryTest()
         {
             CategoryManager categoryManager = new CategoryManager(new EFCategoryDal());
-            foreach (var category in categoryManager.GetAll())
+            foreach (var category in categoryManager.GetAll().Data)
             {
                 Console.WriteLine(category.CategoryId + "-" + category.CategoryName);
             }
-            Console.WriteLine(categoryManager.GetById(5).CategoryName);
+            Console.WriteLine(categoryManager.GetById(5).Data.CategoryName);
         }
 
         private static void ProductTest()
         {
-            ProductManager productManager = new ProductManager(new EFProductDal());
+            ProductManager productManager = new ProductManager(new EFProductDal(),new CategoryManager(new EFCategoryDal()));
 
             //foreach (var product in productManager.GetAll().Data)
             //{
