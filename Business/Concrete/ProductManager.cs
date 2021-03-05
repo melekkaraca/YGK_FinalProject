@@ -49,7 +49,6 @@ namespace Business.Concrete
         }
 
         [CacheAspect]
-        [LogAspect(typeof(FileLogger))]
         public IDataResult<List<Product>> GetAll()
         {
             //İş kodları
@@ -66,7 +65,6 @@ namespace Business.Concrete
         }
         
         [CacheAspect] //varsa cache'den çalıştır. Yoksa önce çalıştır sonra cache ekle
-        [PerformanceAspect(5)] //metodun çalıması 5 saniyeyi geçerse bildir.
         public IDataResult<Product> GetById(int productId)
         {
             return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId));
@@ -83,6 +81,7 @@ namespace Business.Concrete
             }
             return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails());
         }
+
         [ValidationAspect(typeof(ProductValidator))]
         [CacheRemoveAspect("IProductService.Get")]
         public IResult Update(Product product)

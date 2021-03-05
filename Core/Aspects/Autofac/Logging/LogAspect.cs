@@ -44,7 +44,7 @@ namespace Core.Aspects.Autofac.Logging
 
             var logDetail = new LogDetail
             {
-                MethodName = invocation.Method.Name,
+                MethodName = invocation.TargetType.Name +"/"+ invocation.Method.Name,
                 LogParameters = logParameters
             };
 
