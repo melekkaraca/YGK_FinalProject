@@ -14,22 +14,20 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
         //loosely coupled (Gevşek bağlılık)
         //IoC Container --> Inversion of Control (Değiimin kontrolü)
-        IProductService _productService;
-        public ProductsController(IProductService productService)
+        ICategoryService _categoryService;
+        public CategoriesController(ICategoryService categoryService)
         {
-            _productService = productService;
+            _categoryService = categoryService;
         }
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-
-            Thread.Sleep(1000);
-            var result = _productService.GetAll();
+            var result = _categoryService.GetAll();
             if (result.Success == true)
             {
                 return Ok(result);
@@ -40,34 +38,22 @@ namespace WebAPI.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
-            var result = _productService.GetById(id);
+            var result = _categoryService.GetById(id);
             if (result.Success)
             {
                 return Ok(result.Data);
             }
             return BadRequest(result.Message);
         }
-
-        [HttpGet("GetAllByCategoryId")]
-        public IActionResult GetAllByCategoryId(int id)
-        {
-            var result = _productService.GetAllByCategoryId(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result.Message);
-        }
-
-        [HttpPost("add")]
-        public IActionResult Add(Product product)
-        {
-            var result = _productService.Add(product);
-            if (result.Success == true)
-            {
-                return Ok(result.Message);
-            }
-            return BadRequest(result.Message);
-        }
+        //[HttpPost("add")]
+        //public IActionResult Add(Category category)
+        //{
+        //    var result = _categoryService.Add(category);
+        //    if (result.Success == true)
+        //    {
+        //        return Ok(result.Message);
+        //    }
+        //    return BadRequest(result.Message);
+        //}
     }
 }
