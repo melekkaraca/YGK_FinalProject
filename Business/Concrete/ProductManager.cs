@@ -33,22 +33,27 @@ namespace Business.Concrete
             _categoryService = categoryService;
         }
         //claim
-        [SecuredOperation("product.add,editor")]
+        //[SecuredOperation("product.add,editor")]
         [ValidationAspect(typeof(ProductValidator))]
         [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Product product)
         {
             IResult result = BusinessRules.Run(CheckIfProductCountOfCategoryCorrect(product.CategoryId), CheckIfProductNameExists(product.ProductName), CheckIfCategoryLimitExceded());
-            if (result !=null)
+            if (result != null)
             {
                 return result;
             }
             _productDal.Add(product);
             return new SuccessResult(Messages.ProductAdded);
-
+            
+        }
+        public IResult Delete(Product product)
+        {
+            _productDal.Delete(product);
+            return new SuccessResult(Messages.ProductDeleted);
         }
 
-        [CacheAspect]
+        //[CacheAspect]
         public IDataResult<List<Product>> GetAll()
         {
             //İş kodları

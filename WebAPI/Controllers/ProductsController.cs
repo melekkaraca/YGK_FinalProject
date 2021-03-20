@@ -56,7 +56,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpPost("add")]
@@ -65,9 +65,19 @@ namespace WebAPI.Controllers
             var result = _productService.Add(product);
             if (result.Success == true)
             {
-                return Ok(result.Message);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
+        }
+        [HttpPost("delete")]
+        public IActionResult Delete(Product product)
+        {
+            var result = _productService.Delete(product);
+            if (result.Success == true)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
     }
 }
